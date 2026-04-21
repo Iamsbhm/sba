@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RapidSBA — 48-Hour Business Funding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A1628;
+    --cobalt: #1B3A8C;
+    --cobalt-light: #2B54CC;
+    --sky: #3B82F6;
+    --green: #10B981;
+    --green-dark: #059669;
+    --green-glow: rgba(16, 185, 129, 0.25);
+    --white: #FFFFFF;
+    --off-white: #F8FAFF;
+    --slate-100: #EFF3FF;
+    --slate-300: #CBD5E1;
+    --slate-500: #64748B;
+    --slate-700: #334155;
+    --text-dark: #0D1B2E;
+    --radius: 12px;
+    --radius-lg: 20px;
+    --shadow: 0 4px 24px rgba(10, 22, 40, 0.12);
+    --shadow-lg: 0 12px 48px rgba(10, 22, 40, 0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .display {
+    font-family: 'Syne', sans-serif;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo-badge {
+    background: var(--green);
+    color: white;
+    font-size: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .nav-cta {
+    background: var(--green);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav-cta:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 24px 60px;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(43, 84, 204, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(43, 84, 204, 0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-glow-green {
+    position: absolute;
+    bottom: -50px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: var(--green);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 50px;
+    margin-bottom: 28px;
+    letter-spacing: 0.3px;
+  }
+
+  .pulse-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 8vw, 64px);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--green) 0%, var(--sky) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(16px, 4vw, 19px);
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    font-weight: 300;
+    margin-bottom: 36px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-sub strong {
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+  }
+
+  .hero-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--green);
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 18px 36px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 0 0 rgba(16,185,129,0.4);
+    animation: cta-pulse 3s infinite;
+    text-decoration: none;
+    letter-spacing: -0.3px;
+  }
+
+  @keyframes cta-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
+    50% { box-shadow: 0 0 0 12px rgba(16,185,129,0); }
+  }
+
+  .hero-cta-btn:hover {
+    background: var(--green-dark);
+    transform: scale(1.04) translateY(-2px);
+    animation: none;
+  }
+
+  .cta-arrow {
+    font-size: 20px;
+    transition: transform 0.2s;
+  }
+
+  .hero-cta-btn:hover .cta-arrow { transform: translateX(4px); }
+
+  .hero-trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: rgba(255,255,255,0.45);
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  .trust-icon {
+    font-size: 14px;
+    color: var(--green);
+  }
+
+  /* ─── STEPS SECTION ─── */
+  .section-steps {
+    background: var(--white);
+    padding: 80px 24px;
+  }
+
+  .section-label {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--cobalt-light);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 800;
+    color: var(--navy);
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    text-align: center;
+    font-size: 16px;
+    color: var(--slate-500);
+    max-width: 480px;
+    margin: 0 auto 56px;
+    line-height: 1.6;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .step-card {
+    background: var(--off-white);
+    border: 1px solid rgba(27, 58, 140, 0.08);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+
+  .step-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .step-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cobalt-light), var(--green));
+  }
+
+  .step-num {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--cobalt), var(--cobalt-light));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    color: white;
+    margin-bottom: 20px;
+  }
+
+  .step-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: -0.3px;
+    margin-bottom: 8px;
+  }
+
+  .step-card p {
+    font-size: 14px;
+    color: var(--slate-500);
+    line-height: 1.65;
+  }
+
+  .step-tag {
+    display: inline-block;
+    margin-top: 14px;
+    background: rgba(16,185,129,0.1);
+    color: var(--green-dark);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 50px;
+  }
+
+  /* ─── SIDEBAR NOTE ─── */
+  .sidebar-note {
+    background: linear-gradient(135deg, #0A1628 0%, #1B3A8C 100%);
+    padding: 48px 24px;
+  }
+
+  .sidebar-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+    padding: 36px 32px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .sidebar-emoji {
+    font-size: 28px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .sidebar-tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+
+  .sidebar-inner h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.3px;
+    margin-bottom: 10px;
+  }
+
+  .sidebar-inner p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.65;
+  }
+
+  .sidebar-inner p strong {
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* ─── QUIZ SECTION ─── */
+  .quiz-section {
+    background: var(--off-white);
+    padding: 80px 24px;
+  }
+
+  .quiz-wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .quiz-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    border: 1px solid rgba(27, 58, 140, 0.08);
+  }
+
+  .quiz-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--cobalt) 100%);
+    padding: 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quiz-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 40px;
+    background: var(--white);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+
+  .quiz-header h2 {
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .quiz-header p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    max-width: 400px;
+    margin: 0 auto;
+    padding-bottom: 16px;
+  }
+
+  .quiz-progress-wrap {
+    padding: 28px 32px 0;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--slate-500);
+    margin-bottom: 8px;
+  }
+
+  .progress-bar-track {
+    height: 5px;
+    background: var(--slate-100);
+    border-radius: 50px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--cobalt-light), var(--green));
+    border-radius: 50px;
+    transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: 12.5%;
+  }
+
+  .quiz-body {
+    padding: 32px;
+  }
+
+  .quiz-step {
+    display: none;
+    animation: fadeSlide 0.35s ease;
+  }
+
+  .quiz-step.active { display: block; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateX(16px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .quiz-step h3 {
+    font-size: clamp(17px, 3.5vw, 21px);
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: -0.3px;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .quiz-option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    border: 2px solid var(--slate-100);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.18s;
+    background: var(--off-white);
+    font-size: 15px;
+    color: var(--text-dark);
+    font-weight: 400;
+    text-align: left;
+  }
+
+  .quiz-option:hover {
+    border-color: var(--cobalt-light);
+    background: rgba(27, 58, 140, 0.04);
+  }
+
+  .quiz-option.selected {
+    border-color: var(--cobalt-light);
+    background: rgba(27, 58, 140, 0.06);
+    color: var(--cobalt);
+    font-weight: 500;
+  }
+
+  .option-radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--slate-300);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.18s;
+  }
+
+  .quiz-option.selected .option-radio {
+    border-color: var(--cobalt-light);
+    background: var(--cobalt-light);
+  }
+
+  .quiz-option.selected .option-radio::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+  }
+
+  .quiz-input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid var(--slate-100);
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--text-dark);
+    background: var(--off-white);
+    outline: none;
+    transition: border 0.18s;
+    margin-bottom: 12px;
+  }
+
+  .quiz-input:focus {
+    border-color: var(--cobalt-light);
+    background: white;
+  }
+
+  .quiz-input::placeholder { color: var(--slate-300); }
+
+  .quiz-footer {
+    padding: 0 32px 32px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .btn-back {
+    padding: 14px 22px;
+    border: 2px solid var(--slate-100);
+    background: transparent;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--slate-500);
+    cursor: pointer;
+    transition: all 0.18s;
+    display: none;
+  }
+
+  .btn-back.visible { display: block; }
+  .btn-back:hover { border-color: var(--slate-300); color: var(--text-dark); }
+
+  .btn-next {
+    flex: 1;
+    padding: 16px 28px;
+    background: linear-gradient(135deg, var(--cobalt-light), var(--cobalt));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: -0.2px;
+  }
+
+  .btn-next:hover {
+    background: linear-gradient(135deg, var(--cobalt), var(--navy));
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(27,58,140,0.3);
+  }
+
+  .btn-next:disabled {
+    opacity: 0.5;
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* ─── RESULT SCREENS ─── */
+  .result-screen {
+    display: none;
+    padding: 40px 32px;
+    text-align: center;
+    animation: fadeSlide 0.4s ease;
+  }
+
+  .result-screen.active { display: block; }
+
+  .result-icon {
+    font-size: 52px;
+    margin-bottom: 16px;
+  }
+
+  .result-screen h2 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+  }
+
+  .result-screen p {
+    font-size: 15px;
+    color: var(--slate-500);
+    line-height: 1.65;
+    max-width: 400px;
+    margin: 0 auto 28px;
+  }
+
+  .result-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+    letter-spacing: -0.2px;
+  }
+
+  .result-btn.gold {
+    background: var(--green);
+    color: white;
+  }
+
+  .result-btn.gold:hover {
+    background: var(--green-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--green-glow);
+  }
+
+  .result-btn.wait {
+    background: var(--slate-100);
+    color: var(--navy);
+  }
+
+  .result-btn.wait:hover {
+    background: var(--slate-300);
+    transform: translateY(-2px);
+  }
+
+  .result-list {
+    text-align: left;
+    background: var(--off-white);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin: 0 auto 24px;
+    max-width: 400px;
+  }
+
+  .result-list li {
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--slate-700);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    line-height: 1.5;
+  }
+
+  .result-list li:last-child { border-bottom: none; }
+
+  .list-check {
+    color: var(--green);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--navy);
+    padding: 32px 24px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 12px;
+  }
+
+  .footer-disclaimer {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .footer-disclaimer strong {
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 640px) {
+    .sidebar-inner { flex-direction: column; }
+    .quiz-body, .quiz-footer, .quiz-progress-wrap { padding-left: 20px; padding-right: 20px; }
+    .quiz-header { padding: 24px 20px; }
+    .result-screen { padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    RapidSBA
+    <span class="logo-badge">Private</span>
+  </div>
+  <a class="nav-cta" href="#quiz" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'});return false;">
+    Check My Limit →
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow-green"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="pulse-dot"></span>
+      Accepting New Clients · Fast Approval
+    </div>
+    <h1>Get Your <span>48-Hour<br>Funding Limit</span></h1>
+    <p class="hero-sub">
+      We love SBA loans — but they take months.<br>
+      <strong>We provide 48-hour bridge capital</strong> to fund your contracts today, then help you lock in long-term SBA rates when you're ready.
+    </p>
+    <a class="hero-cta-btn" href="#quiz" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'});return false;">
+      See How Much You Qualify For
+      <span class="cta-arrow">→</span>
+    </a>
+    <div class="hero-trust">
+      <div class="trust-item"><span class="trust-icon">⚡</span>48-Hour Decisions</div>
+      <div class="trust-item"><span class="trust-icon">🔒</span>Private Capital</div>
+      <div class="trust-item"><span class="trust-icon">📋</span>SBA Readiness Score</div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="section-steps">
+  <p class="section-label">How It Works</p>
+  <h2 class="section-title">Three Steps to<br>Business Growth</h2>
+  <p class="section-sub">No endless paperwork. No bank runaround. A clear path from today's cash need to tomorrow's long-term financing.</p>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h3>Get Funded in 2 Days</h3>
+      <p>Private capital deployed fast. We fund based on your revenue and contract flow — not just your credit score or business age.</p>
+      <span class="step-tag">Private Capital</span>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h3>Get Your SBA Readiness Score</h3>
+      <p>We start prepping your SBA file immediately. Low-rate, long-term debt becomes your next move while you're already operating on bridge capital.</p>
+      <span class="step-tag">Long-Term Strategy</span>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h3>Keep Growing</h3>
+      <p>Take on bigger contracts. Purchase equipment. Hire the team you need. Your business doesn't pause waiting for banks.</p>
+      <span class="step-tag">Scalable Capital</span>
+    </div>
+  </div>
+</section>
+
+<!-- SIDEBAR NOTE -->
+<div class="sidebar-note">
+  <div class="sidebar-inner">
+    <div class="sidebar-emoji">🟢</div>
+    <div>
+      <p class="sidebar-tag">2026 Residency Update</p>
+      <h3>Banks Saying No Due to March 1st SBA Rules?</h3>
+      <p>Green Card holder? <strong>The new SBA rules changed everything.</strong> We have private capital options that fund strictly on your business revenue — no citizenship requirement. Your contracts and cash flow speak for themselves. Let's talk.</p>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<section class="quiz-section" id="quiz">
+  <div class="quiz-wrapper">
+    <p class="section-label" style="margin-bottom:8px;">60-Second Assessment</p>
+    <h2 class="section-title" style="margin-bottom:10px;">The RapidSBA<br>Funding Filter</h2>
+    <p class="section-sub">Answer 8 quick questions. We'll show you exactly what capital you can unlock this week.</p>
+
+    <div class="quiz-card">
+      <div class="quiz-header">
+        <h2>Get Your 48-Hour Funding Limit</h2>
+        <p>Find out how much private capital you can unlock this week.</p>
+      </div>
+
+      <div class="quiz-progress-wrap">
+        <div class="progress-label">
+          <span id="step-label">Question 1 of 8</span>
+          <span id="pct-label">12%</span>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="quiz-body">
+
+        <!-- STEP 1 -->
+        <div class="quiz-step active" id="step-1">
+          <h3>What is your Business Name & Industry?</h3>
+          <input class="quiz-input" id="biz-name" type="text" placeholder="Business Name" />
+          <input class="quiz-input" id="biz-industry" type="text" placeholder="Industry (e.g. Construction, Retail, Healthcare)" />
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="quiz-step" id="step-2">
+          <h3>How fast do you need the funds in your account?</h3>
+          <div class="quiz-options" id="opts-2">
+            <div class="quiz-option" data-val="urgent" onclick="selectOpt(this, 2)">
+              <div class="option-radio"></div>Within 48–72 Hours
+            </div>
+            <div class="quiz-option" data-val="soon" onclick="selectOpt(this, 2)">
+              <div class="option-radio"></div>1–2 Weeks
+            </div>
+            <div class="quiz-option" data-val="wait" onclick="selectOpt(this, 2)">
+              <div class="option-radio"></div>I can wait 60+ Days (Standard SBA timeline)
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="quiz-step" id="step-3">
+          <h3>What is your average monthly gross revenue?</h3>
+          <div class="quiz-options" id="opts-3">
+            <div class="quiz-option" data-val="low" onclick="selectOpt(this, 3)">
+              <div class="option-radio"></div>Under $25,000
+            </div>
+            <div class="quiz-option" data-val="mid-low" onclick="selectOpt(this, 3)">
+              <div class="option-radio"></div>$25,000 – $75,000
+            </div>
+            <div class="quiz-option" data-val="mid" onclick="selectOpt(this, 3)">
+              <div class="option-radio"></div>$75,000 – $200,000
+            </div>
+            <div class="quiz-option" data-val="high" onclick="selectOpt(this, 3)">
+              <div class="option-radio"></div>$200,000+
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="quiz-step" id="step-4">
+          <h3>How long has your business been operating?</h3>
+          <div class="quiz-options" id="opts-4">
+            <div class="quiz-option" data-val="new" onclick="selectOpt(this, 4)">
+              <div class="option-radio"></div>Less than 6 months
+            </div>
+            <div class="quiz-option" data-val="mid" onclick="selectOpt(this, 4)">
+              <div class="option-radio"></div>6 months – 2 years
+            </div>
+            <div class="quiz-option" data-val="est" onclick="selectOpt(this, 4)">
+              <div class="option-radio"></div>Over 2 years
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="quiz-step" id="step-5">
+          <h3>What is your estimated personal credit score?</h3>
+          <div class="quiz-options" id="opts-5">
+            <div class="quiz-option" data-val="low" onclick="selectOpt(this, 5)">
+              <div class="option-radio"></div>Under 600
+            </div>
+            <div class="quiz-option" data-val="mid" onclick="selectOpt(this, 5)">
+              <div class="option-radio"></div>600 – 680
+            </div>
+            <div class="quiz-option" data-val="high" onclick="selectOpt(this, 5)">
+              <div class="option-radio"></div>680+
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="quiz-step" id="step-6">
+          <h3>What is your primary business goal right now?</h3>
+          <div class="quiz-options" id="opts-6">
+            <div class="quiz-option" data-val="contract" onclick="selectOpt(this, 6)">
+              <div class="option-radio"></div>Fulfill a New Contract / Order
+            </div>
+            <div class="quiz-option" data-val="inventory" onclick="selectOpt(this, 6)">
+              <div class="option-radio"></div>Purchase Inventory / Equipment
+            </div>
+            <div class="quiz-option" data-val="refi" onclick="selectOpt(this, 6)">
+              <div class="option-radio"></div>Refinance Existing High-Interest Debt
+            </div>
+            <div class="quiz-option" data-val="capital" onclick="selectOpt(this, 6)">
+              <div class="option-radio"></div>Working Capital for Payroll / Growth
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 7 -->
+        <div class="quiz-step" id="step-7">
+          <h3>Ownership Status — Are all owners U.S. Citizens or U.S. Nationals?</h3>
+          <div class="quiz-options" id="opts-7">
+            <div class="quiz-option" data-val="yes" onclick="selectOpt(this, 7)">
+              <div class="option-radio"></div>Yes — all owners are U.S. Citizens or Nationals
+            </div>
+            <div class="quiz-option" data-val="no" onclick="selectOpt(this, 7)">
+              <div class="option-radio"></div>No — one or more owners are Permanent Residents (LPR)
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 8 -->
+        <div class="quiz-step" id="step-8">
+          <h3>Last step — where should we send your funding results?</h3>
+          <input class="quiz-input" id="contact-name" type="text" placeholder="Full Name" />
+          <input class="quiz-input" id="contact-email" type="email" placeholder="Email Address" />
+          <input class="quiz-input" id="contact-phone" type="tel" placeholder="Phone Number" />
+        </div>
+
+      </div><!-- /quiz-body -->
+
+      <div class="quiz-footer">
+        <button class="btn-back" id="btn-back" onclick="prevStep()">← Back</button>
+        <button class="btn-next" id="btn-next" onclick="nextStep()">Continue →</button>
+      </div>
+
+      <!-- RESULT: GOLD LEAD -->
+      <div class="result-screen" id="result-gold">
+        <div class="result-icon">🚀</div>
+        <h2 style="color:var(--navy);">You Qualify for Fast-Track Funding</h2>
+        <p>Great news — based on your profile, you're a strong candidate for 48-hour bridge capital. Let's get on a call and lock in your funding limit.</p>
+        <a class="result-btn gold" href="https://calendly.com" target="_blank">
+          📅 Book My Strategy Call Now
+        </a>
+      </div>
+
+      <!-- RESULT: WAIT LEAD -->
+      <div class="result-screen" id="result-wait">
+        <div class="result-icon">📋</div>
+        <h2 style="color:var(--navy);">We're Reviewing Your File</h2>
+        <p>Your application is in. While we review your profile, here are the 3 things to prepare for your bridge loan:</p>
+        <ul class="result-list">
+          <li><span class="list-check">✓</span><span>3 months of business bank statements (most recent)</span></li>
+          <li><span class="list-check">✓</span><span>Proof of business registration / EIN letter</span></li>
+          <li><span class="list-check">✓</span><span>A current accounts receivable or contract on file</span></li>
+        </ul>
+        <a class="result-btn wait" href="mailto:info@rapidsba.com">
+          📩 Email Us Your Documents
+        </a>
+      </div>
+
+    </div><!-- /quiz-card -->
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">RapidSBA</div>
+  <p class="footer-disclaimer">
+    <strong>RapidSBA is a private consulting firm. We are not a government agency.</strong><br>
+    All funding decisions are based on private capital underwriting standards. SBA loan preparation services are advisory only.
+    Results may vary. © 2026 RapidSBA. All rights reserved.
+  </p>
+</footer>
+
+<script>
+  let currentStep = 1;
+  const totalSteps = 8;
+  const answers = {};
+
+  function updateProgress() {
+    const pct = Math.round((currentStep / totalSteps) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('step-label').textContent = `Question ${currentStep} of ${totalSteps}`;
+    document.getElementById('pct-label').textContent = pct + '%';
+    document.getElementById('btn-back').classList.toggle('visible', currentStep > 1);
+  }
+
+  function selectOpt(el, step) {
+    const opts = document.querySelectorAll(`#opts-${step} .quiz-option`);
+    opts.forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    answers[step] = el.dataset.val;
+  }
+
+  function getStepValid() {
+    if (currentStep === 1) {
+      return document.getElementById('biz-name').value.trim().length > 0;
+    }
+    if (currentStep === 8) {
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const phone = document.getElementById('contact-phone').value.trim();
+      return name && email && phone && email.includes('@');
+    }
+    return !!answers[currentStep];
+  }
+
+  function nextStep() {
+    if (!getStepValid()) {
+      const btn = document.getElementById('btn-next');
+      btn.style.background = '#EF4444';
+      btn.textContent = 'Please answer to continue';
+      setTimeout(() => {
+        btn.style.background = '';
+        btn.textContent = currentStep === totalSteps ? 'Get My Results →' : 'Continue →';
+      }, 1500);
+      return;
+    }
+
+    if (currentStep === totalSteps) {
+      submitQuiz();
+      return;
+    }
+
+    document.getElementById(`step-${currentStep}`).classList.remove('active');
+    currentStep++;
+    document.getElementById(`step-${currentStep}`).classList.add('active');
+    if (currentStep === totalSteps) {
+      document.getElementById('btn-next').textContent = 'Get My Results →';
+    }
+    updateProgress();
+  }
+
+  function prevStep() {
+    if (currentStep <= 1) return;
+    document.getElementById(`step-${currentStep}`).classList.remove('active');
+    currentStep--;
+    document.getElementById(`step-${currentStep}`).classList.add('active');
+    document.getElementById('btn-next').textContent = currentStep === totalSteps ? 'Get My Results →' : 'Continue →';
+    updateProgress();
+  }
+
+  function submitQuiz() {
+    const revenue = answers[3];
+    const urgency = answers[2];
+    const age = answers[4];
+
+    const isGold = (
+      (revenue === 'mid' || revenue === 'high' || revenue === 'mid-low') &&
+      (urgency === 'urgent' || urgency === 'soon') &&
+      age !== 'new'
+    );
+
+    // Hide quiz body and footer
+    document.querySelector('.quiz-body').style.display = 'none';
+    document.querySelector('.quiz-footer').style.display = 'none';
+    document.querySelector('.quiz-progress-wrap').style.display = 'none';
+
+    if (isGold) {
+      document.getElementById('result-gold').classList.add('active');
+    } else {
+      document.getElementById('result-wait').classList.add('active');
+    }
+  }
+
+  updateProgress();
+</script>
+</body>
+</html>
